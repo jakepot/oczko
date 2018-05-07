@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
-fn = "10_h"
+fn = "11_h"
 data = cv2.imread("./all/images/" + fn + ".jpg", 0)
 color = cv2.imread("./all/images/" + fn + ".jpg", 1)
 manual = cv2.imread("./all/manual1/" + fn + ".tif", 0)
@@ -13,12 +13,19 @@ scale = 0.25
 
 data = cv2.resize(data, None, fx=scale, fy=scale)
 
-# sharpen
+# sharpen - not used
 kernelsh = np.zeros((9, 9), np.float32)
 kernelsh[4, 4] = 2.0
 boxFilter = np.ones((9, 9), np.float32) / 81.0
 kernelsh = kernelsh - boxFilter
 sharpen = cv2.filter2D(data, -1, kernelsh)
+
+# equalize histogram - not used
+datah = cv2.equalizeHist(data)
+
+# clahe - not used
+clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+datac = clahe.apply(data)
 
 manual = cv2.resize(manual, None, fx=scale, fy=scale)
 mask = cv2.resize(mask, None, fx=scale, fy=scale)
@@ -46,6 +53,7 @@ for i in range(len(titles)):
 
 plt.subplot(2, 3, 6)
 plt.imshow(color)
+plt.title("output")
 
 tp = 0
 tn = 0
