@@ -51,6 +51,11 @@ for row in range(len(manual)):
             else:
                 tn += 1
 
+print("TP: " + str(tp))
+print("FP: " + str(fp))
+print("FN: " + str(fn))
+print("TN: " + str(tn))
+
 print('Sensitivity: ' + str(float(tp) / (tp + fn)))
 print('Precision: ' + str(float(tp) / (tp + fp)))
 print('Accuracy: ' + str(float(tp + tn) / (tp + tn + fp + fn)))
